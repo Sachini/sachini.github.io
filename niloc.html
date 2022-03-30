@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Neural Inertial Localization">
+    <meta name="author" content="Sachini Herath,
+                                 David Caruso,
+                                 Chen Liu,
+                                 Yufan Chen,
+                                 Yasutaka Furukawa">
+
+    <title>NILoc</title>
+    <!-- Bootstrap core CSS -->
+    <!--link href="bootstrap.min.css" rel="stylesheet"-->
+    <link rel="stylesheet" href="./niloc_files/bootstrap.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="./niloc_files/offcanvas.css" rel="stylesheet">
+    <!--    <link rel="icon" href="img/favicon.gif" type="image/gif">-->
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1052.0" data-gr-ext-installed="">
+<div class="jumbotron jumbotron-fluid">
+    <div class="container"></div>
+    <h2>Neural Inertial Localization</h2>
+    <h3>CVPR 2022 (Accepted) </h3>
+    <hr>
+    <p class="authors">
+        <a href="https://sachini.github.io/"> Sachini Herath <sup>1</sup></a>,
+        <a href="https://scholar.google.co.uk/citations?user=EcUN5MQAAAAJ&hl=en"> David Caruso <sup>2</sup></a>,<br>
+        <a href="http://art-programmer.github.io/"> Chen Liu <sup>2</sup></a>,
+        <a href="https://www.linkedin.com/in/steven-chen-a9baa562/"> Yufan Chen <sup>2</sup></a>,
+        <a href="https://www.cs.sfu.ca/~furukawa/"> Yasutaka Furukawa <sup>1</sup></a>
+    </p>
+    <p class="authors">
+        <sup>1</sup> Simon Fraser University &emsp; <sup>2</sup> Reality Labs, Meta
+    </p>
+    <div class="btn-group" role="group" aria-label="Top menu">
+        <a class="btn btn-primary" href="#">Preprint</a>
+        <a class="btn btn-primary" href="#">Paper</a>
+        <a class="btn btn-primary" href="https://github.com/Sachini/niloc">Code</a>
+        <a class="btn btn-primary" href="https://www.dropbox.com/scl/fo/uux0twqk7gsgwdpljkahd/h?dl=0&rlkey=0g8qi66jsl14ffbx6r7nfn3rx">Data</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="section">
+        <div class="vcontainer">
+            <iframe class="video" src="https://www.youtube.com/embed/FmkfUKhKe2Q" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen=""></iframe>
+        </div>
+        <hr>
+        <p>
+            This paper proposes the inertial localization problem, the task of estimating the absolute location from a
+            sequence of inertial sensor measurements.
+            This is an exciting and unexplored area of indoor localization research, where we present a rich dataset
+            with 53 hours of inertial sensor data and the associated ground truth locations.
+
+            We developed a solution, dubbed neural inertial localization NILoc which
+            1) uses a neural inertial navigation technique to turn inertial sensor history to a sequence of velocity
+            vectors; then
+            2) employs a transformer-based neural architecture to find the device location from the sequence of
+            velocities.
+            We only use an IMU sensor, which is energy efficient and privacy preserving compared to WiFi, cameras, and
+            other data sources.
+            Our approach is significantly faster and achieves competitive results even compared with state-of-the-art
+            methods that require a floorplan and run 20 to 30 times slower.
+            We share our code, model and data.
+        </p>
+        <img src="./niloc_files/teaser.png" style="width:100%">
+    </div>
+
+    <div class="section">
+        <h2>Dataset</h2>
+        <hr>
+        <p>
+            NILoc inertial localization dataset contains 53 hours of motion/trajectory data from two university
+            buildings and one office space.
+            Each scene spans a flat floor and we share IMU data and ground-truth locations based on Visual Inertial SLAM
+            for each trajectory.
+        </p>
+        <p style="text-align:center"><a href="https://www.dropbox.com/scl/fo/uux0twqk7gsgwdpljkahd/h?dl=0&rlkey=0g8qi66jsl14ffbx6r7nfn3rx" class="nav-link"
+                                        target="_blank">[Download]</a></p>
+        <table class="tg">
+            <thead>
+            <tr>
+                <th class="tg-wqh3" rowspan="2">Dataset</th>
+                <th class="tg-wqh3" colspan="2">Environment</th>
+                <th class="tg-wqh3" colspan="4">Full Dataset statistics</th>
+            </tr>
+            <tr>
+                <th class="tg-wqh3">Dimensions<br> <span style="font-weight:400;font-style:normal">(m^2)</span></th>
+                <th class="tg-wqh3">resolution <br><span
+                        style="font-weight:400;font-style:normal">(pixels per meter)</span></th>
+                <th class="tg-wqh3">trajectories</th>
+                <th class="tg-ytud">subjects</th>
+                <th class="tg-wqh3">duration (h)</th>
+                <th class="tg-wqh3">length(km)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="tg-2bev">University A</td>
+                <td class="tg-2bev">62.8 x 84.4</td>
+                <td class="tg-3cmc">2.5</td>
+                <td class="tg-3cmc">151</td>
+                <td class="tg-3cmc">52</td>
+                <td class="tg-3cmc">25.57</td>
+                <td class="tg-3cmc"><span style="font-weight:400;font-style:normal">65.35</span></td>
+            </tr>
+            <tr>
+                <td class="tg-2bev">University B</td>
+                <td class="tg-2bev">57.6 x 147.2</td>
+                <td class="tg-3cmc">2.5</td>
+                <td class="tg-3cmc">91</td>
+                <td class="tg-3cmc">3</td>
+                <td class="tg-3cmc">14.64</td>
+                <td class="tg-3cmc">59.63</td>
+            </tr>
+            <tr>
+                <td class="tg-2bev">Office C</td>
+                <td class="tg-2bev">38.4 x 11.2</td>
+                <td class="tg-3cmc">10</td>
+                <td class="tg-3cmc">77</td>
+                <td class="tg-3cmc">1</td>
+                <td class="tg-3cmc">12.8</td>
+                <td class="tg-3cmc"><span style="font-weight:400;font-style:normal">25.65</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Architecture</h2>
+        <hr>
+        <p>
+            We use two branch transformer architecture to estimate location likelihood from IMU velocity input.
+        </p>
+        <p style="text-align:center"><a href="https://github.com/Sachini/niloc" class="nav-link"
+                                        target="_blank">[Github Repo]</a></p>
+        <img src="./niloc_files/network.png" class="center" style="width: 80%;">
+    </div>
+
+    <div class="section">
+        <h2>Related Projects</h2>
+        <hr>
+        <p>
+            Check out our related projects on the topic of inertial navigation and localization! <br>
+        </p>
+        <div class="row vspace-top">
+            <div class="col-sm-4">
+                <iframe src="https://www.youtube.com/embed/CCDms7KWgI8" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+            </div>
+
+            <div class="col">
+                <div class="paper-title">
+                    <a href="https://github.com/Sachini/Fusion-DHL">Fusion-DHL: WiFi, IMU, and Floorplan Fusion for
+                        Dense History of Locations in Indoor Environments (ICRA 2021) </a>
+                </div>
+                <div>
+                    A multi-modal sensor fusion algorithm that fuses WiFi, IMU, and floorplan information to infer an
+                    accurate and dense location history in indoor environments. The algorithm uses 1) an inertial
+                    navigation algorithm to estimate a relative motion trajectory from IMU sensor data; 2) a WiFi-based
+                    localization API in industry to obtain positional constraints and geo-localize the trajectory; and
+                    3) a convolutional neural network to refine the location history to be consistent with the
+                    floorplan.
+                </div>
+            </div>
+        </div>
+
+        <div class="row vspace-top">
+            <div class="col-sm-4">
+                <iframe src="https://www.youtube.com/embed/JkL3O9jFYrE" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+            </div>
+
+            <div class="col">
+                <div class="paper-title">
+                    <a href="https://ronin.cs.sfu.ca/">RoNIN: Robust Neural Inertial Navigation in the Wild
+                        (ICRA 2020)</a>
+                </div>
+                <div>
+                    The research focus on data-driven inertial navigation, where the task is the estimation of positions
+                    and orientations of a moving subject from a sequence of IMU sensor measurements. We present 1) a new
+                    benchmark of IMU sensor data and ground-truth 3D trajectories under natural human motions; 2) neural
+                    inertial navigation architectures, making significant improvements for challenging motion cases; and
+                    3) comprehensive evaluations of the competing methods and datasets.
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!--
+    <div class="section">
+        <h2>Paper</h2>
+        <hr>
+        <div>
+            <div class="list-group">
+                <a href="https://arxiv.org/abs/2006.09661" class="list-group-item">
+                    <img src="./niloc_files/paper_thumbnail.png"
+                         style="width:100%; margin-right:-20px; margin-top:-10px;">
+                </a>
+            </div>
+        </div>
+    </div>
+   -->
+
+    <!-- <div class="section">
+        <h2>Bibtex</h2>
+        <hr>
+        <div class="bibtexsection">
+            @inproceedings{herath2020niloc,
+            author = {Herath, Sachini and Caruso, David and Liu,
+            Chen,  and Chen, Yufan and Furukawa, Yasutaka},
+            title = {Neural Inertial Localization},
+            booktitle = {Proceedings of the IEEE/CVF Conference on
+            Computer Vision and Pattern Recognition (CVPR)},
+            year={2022}}
+        </div>
+    </div> -->
+
+    <hr>
+
+    <footer>
+        <p>Send feedback and questions to <a href="https://sachini.github.io/">Sachini Herath</a></p>
+        <p>Template credit: <a href="vsitzmann.github.io">Vincent Sitzmann</a></p>
+    </footer>
+</div>
+
+
+<script src="./niloc_files/jquery-3.5.1.slim.min.js"></script>
+<script src="./niloc_files/popper.min.js"></script>
+<script src="./niloc_files/bootstrap.min.js"></script>
+
+
+</div>
+</div>
+</body>
+</html>
